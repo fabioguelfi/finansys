@@ -22,31 +22,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><strong>Lazer</strong></td><br><small>Cinema, parque, praia e etc</small>
+    <tr *ngFor="let category of categories; trackBy:category?.id">
+      <td><strong>{{ category?.name }}</strong></td><br><small>{{ category?.description }}</small>
       <td>
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button 
-        (click)="alert('excluir')"
-        class="btn btn-outline-danger btn-sm">Editar</button>
-      </td>
-    </tr>
-    <tr>
-      <td><strong>Lazer</strong></td><br><small>Cinema, parque, praia e etc</small>
-      <td>
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button 
-        (click)="alert('excluir')"
-        class="btn btn-outline-danger btn-sm">Editar</button>
-      </td>
-    </tr>
-      <tr>
-      <td><strong>Lazer</strong></td><br><small>Cinema, parque, praia e etc</small>
-      <td>
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button 
-        (click)="alert('excluir')"
-        class="btn btn-outline-danger btn-sm">Editar</button>
+        <a [routerLink]="[category.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+        <button (click)="deleteCategory(category)" class="btn btn-outline-danger btn-sm">Editar</button>
       </td>
     </tr>
   </tbody>
