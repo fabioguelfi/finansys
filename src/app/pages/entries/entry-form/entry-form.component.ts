@@ -20,6 +20,14 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   public serverErrorMessages: string[] = null;
   public submittingForm: boolean = false;
   public entry: Entry = new Entry();
+  public imaskConfig = {
+    mask: Number,
+    scale: 2,
+    trousandsSeparator: '',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    radix: ','
+  };
 
   constructor(
     private readonly entryService: EntryService,
