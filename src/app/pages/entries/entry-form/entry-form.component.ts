@@ -6,6 +6,8 @@ import { EntryService } from '../shared/entry.service';
 import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';
 import { noop } from 'rxjs';
+import { Category } from '../../categories/shared/category.model';
+import { CategoryService } from '../../categories/shared/category.service';
 
 @Component({
   selector: 'app-entry-form',
@@ -20,6 +22,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   public serverErrorMessages: string[] = null;
   public submittingForm: boolean = false;
   public entry: Entry = new Entry();
+  public categories: Array<Category> = [];
   public imaskConfig = {
     mask: Number,
     scale: 2,
@@ -43,12 +46,14 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     private readonly entryService: EntryService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService) { }
 
   public ngOnInit(): void {
     this.setCurrentAction();
     this.buildEntryForm();
     this.loadEntry();
+    this.loadCategories();
   }
 
   public ngAfterContentChecked(): void {
@@ -62,6 +67,10 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     } else if (this.currentAction === 'edit') {
       this.updateEntry();
     }
+  }
+
+  get typeOptions(): Array<any> {
+    return Object.entries(Entry.types).map((value, text) => ({ text, value }) )
   }
 
   private setCurrentAction() {
@@ -97,6 +106,11 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     } else if (this.currentAction === 'new') {
 
     }
+  }
+
+  private loadCategories() {
+    this.categoryService.getAll()
+    .subscribe(categories => this.categories = categories);
   }
 
   private setPageTitle(): void {
