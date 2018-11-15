@@ -57,7 +57,7 @@ export class EntryService {
   }
 
   private jsonDataToEntries(jsonData: any[]): Entry[] {
-    return jsonData.reduce((acc, curr) => (acc = [...acc, curr]), [])
+    return jsonData.reduce((acc, curr) => (acc = [...acc, Object.assign(new Entry(), curr)]), [])
   }
 
   private jsonDataToEntry(jsonData: any): Entry {
