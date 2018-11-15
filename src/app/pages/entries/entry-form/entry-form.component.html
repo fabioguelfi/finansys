@@ -79,6 +79,18 @@
                         <div *ngIf="entryForm.get('date').errors.required">dado obrigatorio</div>
                       </div>
                     </div>
+
+                  <!-- paid -->
+                  <div class="form-group col-md-3">
+                      <label for="paid">Pago</label>
+                      <div class="btn-group">
+                        <label (click)="entryForm.get('paid').setValue(true)" [class.active]="entryForm.get('paid') == true" class='btn btn-outline-info'>Pago</label>
+                        <label (click)="entryForm.get('paid').setValue(false)" [class.active]="entryForm.get('paid') == false" class='btn btn-outline-info'>Pendente</label>
+                      </div>
+                      <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
+                        <div *ngIf="entryForm.get('paid').errors.required">dado obrigatorio</div>
+                      </div>
+                    </div>
                    
                   <!-- description -->
                   <div class="form-group col-md-8">
@@ -99,3 +111,5 @@
 
             </div>
 </form>
+
+<pre>{{ entryForm.value | json }}</pre>
