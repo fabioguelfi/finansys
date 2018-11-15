@@ -91,9 +91,21 @@
                         <div *ngIf="entryForm.get('paid').errors.required">dado obrigatorio</div>
                       </div>
                     </div>
+
+                  <!-- categoryId -->
+                  <div class="form-group col-md-3">
+                      <label for="categoryId">Categoria</label>
+                      <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
+                          <option value="1">Categoria 1</option>
+                          <option value="2">Categoria 2</option>
+                        </select>
+                      <div class="text-danger" *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched">
+                        <div *ngIf="entryForm.get('categoryId').errors.required">dado obrigatorio</div>
+                      </div>
+                  </div>
                    
                   <!-- description -->
-                  <div class="form-group col-md-8">
+                  <div class="form-group col-md-7">
                     <label for="description">Descrição</label>
                     <input type="text" name="description" id='description' formControlName="description" class="form-control">
                   </div>
