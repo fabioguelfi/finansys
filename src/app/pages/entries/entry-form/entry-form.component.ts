@@ -28,6 +28,16 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     normalizeZeros: true,
     radix: ','
   };
+  public ptBR = {
+    firstDayOfWeek: 0,
+    dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    today: 'Today',
+    clear: 'Clear'
+  };
 
   constructor(
     private readonly entryService: EntryService,
@@ -49,7 +59,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     this.submittingForm = true;
     if (this.currentAction === 'new') {
       this.createEntry();
-    } else if(this.currentAction === 'edit') {
+    } else if (this.currentAction === 'edit') {
       this.updateEntry();
     }
   }
@@ -79,12 +89,12 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   private loadEntry() {
     if (this.currentAction === 'edit') {
       this.activatedRoute.paramMap
-      .pipe(switchMap(params => this.entryService.getById(+params.get('id'))))
-      .subscribe((entry) => {
-        this.entry = entry
-        this.entryForm.patchValue({...entry}) // binds loaded entry data to EntryForm
-      }, (error) => alert(error), noop)
-    } else if(this.currentAction === 'new') {
+        .pipe(switchMap(params => this.entryService.getById(+params.get('id'))))
+        .subscribe((entry) => {
+          this.entry = entry
+          this.entryForm.patchValue({ ...entry }) // binds loaded entry data to EntryForm
+        }, (error) => alert(error), noop)
+    } else if (this.currentAction === 'new') {
 
     }
   }
@@ -98,21 +108,21 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     const { id, name, description } = this.entryForm.value;
     const entry: Entry = new Entry(id, name, description)
     this.entryService.create(entry)
-    .subscribe((entry: Entry) => this.actionsForSuccess(entry),
-      error => this.actionsForError(error), noop);
+      .subscribe((entry: Entry) => this.actionsForSuccess(entry),
+        error => this.actionsForError(error), noop);
   }
 
   private updateEntry(): void {
     this.entryService.update({ ...this.entryForm.value })
-    .subscribe((entry: Entry) => this.actionsForSuccess(entry),
-    error => this.actionsForError(error), noop);
+      .subscribe((entry: Entry) => this.actionsForSuccess(entry),
+        error => this.actionsForError(error), noop);
   }
 
   // Redirect/reload component 
   private actionsForSuccess(entry: Entry): void {
     toastr.success('Solicitacao processada com successo');
     this.router.navigateByUrl('categories', { skipLocationChange: true })
-    .then(() => this.router.navigate(['categories', entry.id, 'edit']))
+      .then(() => this.router.navigate(['categories', entry.id, 'edit']))
   }
 
   private actionsForError(error): void {

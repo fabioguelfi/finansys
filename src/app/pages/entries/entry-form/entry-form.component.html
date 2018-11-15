@@ -46,7 +46,7 @@
                   </div>
                 </div>
 
-                <!-- amount -->
+                  <!-- amount -->
                   <div class="form-group col-md-3">
                     <label for="amount">Valor</label>
                     <div class="input-group">
@@ -55,12 +55,30 @@
                       </div>
                       <input 
                       [imask]="imaskConfig"
-                      type="text" amount="amount" id="amount" formControlName="amount" class="form-control text-right">
+                      type="text" type="text" id="amount" formControlName="amount" class="form-control text-right">
                     </div>
                     <div class="text-danger" *ngIf="entryForm.get('amount').invalid && entryForm.get('amount').touched">
                       <div *ngIf="entryForm.get('amount').errors.required">dado obrigatorio</div>
                     </div>
                   </div>
+
+                  <!-- date -->
+                  <div class="form-group col-md-2">
+                      <label for="date">Data</label>
+                      <p-calendar
+                      id='date'
+                      formControlName="date"
+                      inputStyleClass='form-control'
+                      dataType='string'
+                      dateFormat='dd/mm/yy'
+                      [locale]='ptBR'
+                      showButtonBar="true">
+
+                      </p-calendar>
+                      <div class="text-danger" *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched">
+                        <div *ngIf="entryForm.get('date').errors.required">dado obrigatorio</div>
+                      </div>
+                    </div>
                    
                   <!-- description -->
                   <div class="form-group col-md-8">
