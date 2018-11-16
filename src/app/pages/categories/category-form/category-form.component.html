@@ -11,8 +11,11 @@
     <h1 class="h2 border-left pl-2">Formulario de categorias {{ currentAction }}</h1>
   </div>
   <div class="col-md">
-    <a routerLink="/categories" class="btn btn-success float-right">
-      << Voltar</a> </div> </div> <form [formGroup]="categoryForm" (submit)="submitForm()" novalidate>
+    <a routerLink="/categories" class="btn btn-success float-right"><< Voltar</a> 
+  </div> 
+</div> 
+
+<form [formGroup]="categoryForm" (submit)="submitForm()" novalidate>
 
         <div class="card">
 

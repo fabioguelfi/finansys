@@ -7,6 +7,7 @@ import { HttpClientInMemoryWebApiModule } from  'angular-in-memory-web-api';
 import { InMemoryDatabase } from './in-memory-database';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase)
-  ],
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
+    CoreModule 
+   ],
   providers: [],
   bootstrap: [AppComponent]
 })
