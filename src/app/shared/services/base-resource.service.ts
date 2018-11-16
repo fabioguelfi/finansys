@@ -2,53 +2,43 @@ import { HttpClient } from '@angular/common/http';
 import { BaseResourceModel } from '../models/base.resource.model';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { Injector } from '@angular/core';
 
-export abstract class ServiceNameService<T extends BaseResourceModel> {
+export abstract class BaseResourceService<T extends BaseResourceModel> {
+    protected httpClient: HttpClient;
+
     constructor(
         protected apiPath: string,
-        private httpClient: HttpClient) { }
+        protected injector: Injector) { 
+            this.httpClient = injector.get(HttpClient)
+        }
 
     public getAll(): Observable<T[]> {
         return this.httpClient.get(`${this.apiPath}`)
-            .pipe(
-                catchError(this.handlerError),
-                map(this.jsonDataToResources)
-            )
+            .pipe(catchError(this.handlerError), map(this.jsonDataToResources));
     }
 
     public getById(id: number): Observable<T> {
         const url = `${this.apiPath}/${id}`
         return this.httpClient.get(`${url}`)
-            .pipe(
-                catchError(this.handlerError),
-                map(this.jsonDataToResource)
-            )
+            .pipe(catchError(this.handlerError), map(this.jsonDataToResource));
     }
 
     public create(resource: T): Observable<T> {
         return this.httpClient.post(`${this.apiPath}`, resource)
-            .pipe(
-                catchError(this.handlerError),
-                map(this.jsonDataToResource)
-            )
+            .pipe(catchError(this.handlerError),map(this.jsonDataToResource))
     }
 
     public update(resource: T): Observable<T> {
         const url = `${this.apiPath}/${resource.id}`
         return this.httpClient.put(url, resource)
-            .pipe(
-                catchError(this.handlerError),
-                map(() => resource)
-            )
+            .pipe(catchError(this.handlerError),map(() => resource))
     }
 
     public delete(id: number): Observable<T> {
         const url = `${this.apiPath}/${id}`
         return this.httpClient.delete(url)
-            .pipe(
-                catchError(this.handlerError),
-                map(() => null)
-            )
+            .pipe(catchError(this.handlerError),map(() => null))
     }
 
     // Protected Methods
@@ -62,7 +52,6 @@ export abstract class ServiceNameService<T extends BaseResourceModel> {
     }
 
     protected handlerError(error: any): Observable<any> {
-        console.log(`error`, error)
         return throwError(error)
     }
 }

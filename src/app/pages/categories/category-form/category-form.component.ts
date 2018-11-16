@@ -19,7 +19,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   public pageTitle: string;
   public serverErrorMessages: string[] = null;
   public submittingForm: boolean = false;
-  public category: Category = new Category(null, null, null);
+  public category: Category = new Category();
 
   constructor(
     private readonly categoryService: CategoryService,
@@ -83,7 +83,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   private createCategory(): void {
     const { id, name, description } = this.categoryForm.value;
-    const category: Category = new Category(id, name, description)
+    const category: Category = new Category(name, description)
     this.categoryService.create(category)
     .subscribe((category: Category) => this.actionsForSuccess(category),
       error => this.actionsForError(error), noop);
